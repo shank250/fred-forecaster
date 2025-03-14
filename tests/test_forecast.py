@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
-from src.forecast import fit_sarimax_model, generate_simulations
+from fred_forecaster import fit_sarimax_model, generate_simulations
 
 
 class TestForecast(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestForecast(unittest.TestCase):
     def setUp(self):
         """Create test data"""
         # Create quarterly time series data
-        dates = pd.date_range(start='2020-01-01', periods=12, freq='Q')
+        dates = pd.date_range(start='2020-01-01', periods=12, freq='QE')
         values = np.array([100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210])
         self.test_series = pd.Series(values, index=dates)
         self.test_df = pd.DataFrame({'Debt': self.test_series})

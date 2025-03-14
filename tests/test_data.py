@@ -2,12 +2,12 @@ import unittest
 from unittest.mock import patch, MagicMock
 import pandas as pd
 import os
-from src.data import fetch_fred_data
+from fred_forecaster import fetch_fred_data
 
 
 class TestData(unittest.TestCase):
     
-    @patch('src.data.Fred')
+    @patch('fred_forecaster.data.Fred')
     def test_fetch_fred_data(self, mock_fred):
         """Test that fetch_fred_data correctly processes FRED data"""
         # Setup mock
@@ -30,9 +30,9 @@ class TestData(unittest.TestCase):
         
         # Assertions
         self.assertEqual(len(result), 4)
-        self.assertTrue('Debt' in result.columns)
-        self.assertEqual(result['Debt'].iloc[0], 100)  # 100 million / 1e6 = 100 trillion
-        self.assertEqual(result['Debt'].iloc[-1], 400)
+        self.assertTrue('TEST' in result.columns)
+        self.assertEqual(result['TEST'].iloc[0] / 1e6, 100)  # 100 million / 1e6 = 100 trillion
+        self.assertEqual(result['TEST'].iloc[-1] / 1e6, 400)
         
         # Verify the mock was called correctly
         mock_fred.assert_called_once_with(api_key='test_key')

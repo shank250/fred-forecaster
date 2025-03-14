@@ -2,7 +2,7 @@ import unittest
 import pandas as pd
 import numpy as np
 import pytest
-from src.forecast import fit_bayesian_model, generate_bayesian_simulations
+from fred_forecaster import fit_bayesian_model, generate_bayesian_simulations
 
 
 class TestBayesianForecasting(unittest.TestCase):

@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 import numpy as np
-from src.calibration import calibrate_simulations
+from fred_forecaster import calibrate_simulations
 
 
 class TestCalibration(unittest.TestCase):

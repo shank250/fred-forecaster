@@ -2,7 +2,7 @@ import unittest
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from src.visualization import plot_forecasts, plot_drop_probabilities
+from fred_forecaster import plot_forecasts, plot_drop_probabilities
 
 
 class TestVisualization(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestVisualization(unittest.TestCase):
     def setUp(self):
         """Create test data for visualization"""
         # Create historical data
-        dates = pd.date_range(start='2020-01-01', periods=12, freq='Q')
+        dates = pd.date_range(start='2020-01-01', periods=12, freq='QE')
         values = np.array([100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210])
         series = pd.Series(values, index=dates)
         self.df_quarterly = pd.DataFrame({'Debt': series})
