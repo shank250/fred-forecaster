@@ -1,10 +1,11 @@
 """Visualization functions for forecast results."""
 
+from typing import Any, Dict, List, Optional, Tuple
+
 import numpy as np
 import pandas as pd
-import plotly.graph_objects as go
 import plotly.express as px
-from typing import Optional, Tuple, Dict, Any, List
+import plotly.graph_objects as go
 
 from .data import get_series_name, get_series_title
 

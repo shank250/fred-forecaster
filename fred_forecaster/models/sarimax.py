@@ -1,9 +1,10 @@
 """SARIMAX time series forecasting models."""
 
+from typing import Tuple, Union
+
 import numpy as np
 import pandas as pd
 from statsmodels.tsa.statespace.sarimax import SARIMAX
-from typing import Tuple, Union
 
 
 def fit_sarimax_model(ts_data: Union[pd.Series, pd.DataFrame]):

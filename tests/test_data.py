@@ -1,7 +1,9 @@
-import unittest
-from unittest.mock import patch, MagicMock
-import pandas as pd
 import os
+import unittest
+from unittest.mock import MagicMock, patch
+
+import pandas as pd
+
 from fred_forecaster import fetch_fred_data
 
 

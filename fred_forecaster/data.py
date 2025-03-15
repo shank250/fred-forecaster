@@ -1,10 +1,11 @@
 """Functions for fetching and preprocessing FRED data."""
 
-import pandas as pd
-import numpy as np
 import os
+from typing import Any, Dict, Optional
+
+import numpy as np
+import pandas as pd
 from fredapi import Fred
-from typing import Optional, Dict, Any
 
 
 def fetch_fred_data(
