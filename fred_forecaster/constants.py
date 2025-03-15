@@ -1,7 +1,7 @@
 """Constants used throughout the package."""
 
 # Congressional Budget Office (CBO) forecast targets in trillions
-CBO_Q4_FORECAST = {
+CBO_Q4_FORECAST: dict[int, float] = {
     2024: 35.230,
     2025: 37.209,
     2026: 39.130,
@@ -10,6 +10,6 @@ CBO_Q4_FORECAST = {
 }
 
 # Example quarterly targets (for future use)
-CBO_Q3_FORECAST = {
+CBO_Q3_FORECAST: dict[int, float] = {
     # ...
 }

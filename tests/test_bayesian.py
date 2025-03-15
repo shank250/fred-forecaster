@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import pytest
 from fred_forecaster import fit_bayesian_model, generate_bayesian_simulations
+from typing import Dict, Any
 
 
 class TestBayesianForecasting(unittest.TestCase):
@@ -58,10 +59,10 @@ class TestBayesianForecasting(unittest.TestCase):
 
             # Create mock InferenceData object
             class MockPosterior:
-                def __init__(self, data):
+                def __init__(self, data: Dict[str, Any]):
                     self.data = data
 
-                def __getitem__(self, key):
+                def __getitem__(self, key: str):
                     return self.data[key]
 
             class MockInferenceData:

@@ -135,10 +135,10 @@ def generate_bayesian_simulations(
     # Setup forecast model
     with model:
         # Get parameter posterior samples
-        level_trace = idata.posterior["level"]
-        trend_trace = idata.posterior["trend"]
-        seasonal_trace = idata.posterior["seasonal"]
-        sigma_obs_trace = idata.posterior["sigma_obs"]
+        level_trace = idata.posterior["level"]  # type: ignore[attr-defined]
+        trend_trace = idata.posterior["trend"]  # type: ignore[attr-defined]
+        seasonal_trace = idata.posterior["seasonal"]  # type: ignore[attr-defined]
+        sigma_obs_trace = idata.posterior["sigma_obs"]  # type: ignore[attr-defined]
 
         # Flatten chains
         level_samples = level_trace.reshape(-1, n_data)
@@ -158,31 +158,25 @@ def generate_bayesian_simulations(
             # Get last values from the model
             last_level = level_samples[idx, -1]
             last_trend = trend_samples[idx, -1]
-            season_pattern = seasonal_samples[
-                idx, -4:
-            ]  # Last year's seasonality
+            season_pattern = seasonal_samples[idx, -4:]  # Last year's seasonality
             sigma = sigma_samples[idx]
 
             # Forecast values
             forecast = np.zeros(steps)
             for j in range(steps):
                 # Add in trend component with some noise
-                level_next = (
-                    last_level + last_trend + np.random.normal(0, sigma / 10)
-                )
+                level_next = last_level + last_trend + np.random.normal(0, sigma / 10)
                 trend_next = last_trend + np.random.normal(0, sigma / 20)
 
                 # Add in seasonal component
                 season_idx = j % 4
-                seasonal_component = season_pattern[
-                    season_idx
-                ] + np.random.normal(0, sigma / 20)
+                seasonal_component = season_pattern[season_idx] + np.random.normal(
+                    0, sigma / 20
+                )
 
                 # Combine components
                 forecast[j] = (
-                    level_next
-                    + seasonal_component
-                    + np.random.normal(0, sigma)
+                    level_next + seasonal_component + np.random.normal(0, sigma)
                 )
 
                 # Update for next step
@@ -191,7 +185,5 @@ def generate_bayesian_simulations(
 
             sim_array[:, i] = forecast
 
-    forecast_index = pd.period_range(
-        start_forecast, periods=steps, freq="Q-DEC"
-    )
+    forecast_index = pd.period_range(start_forecast, periods=steps, freq="Q-DEC")
     return sim_array, forecast_index
