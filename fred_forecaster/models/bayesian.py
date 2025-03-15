@@ -137,10 +137,10 @@ def generate_bayesian_simulations(
     # Setup forecast model
     with model:
         # Get parameter posterior samples
-        level_trace = idata.posterior["level"].values
-        trend_trace = idata.posterior["trend"].values
-        seasonal_trace = idata.posterior["seasonal"].values
-        sigma_obs_trace = idata.posterior["sigma_obs"].values
+        level_trace = idata.posterior["level"]
+        trend_trace = idata.posterior["trend"]
+        seasonal_trace = idata.posterior["seasonal"]
+        sigma_obs_trace = idata.posterior["sigma_obs"]
         
         # Flatten chains
         level_samples = level_trace.reshape(-1, n_data)
