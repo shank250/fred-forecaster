@@ -5,21 +5,21 @@ This app demonstrates the use of the fred_forecaster package for generating
 time series forecasts of FRED economic data.
 """
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.graph_objects as go
 import arviz as az
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
 
 from fred_forecaster import (
-    fetch_fred_data,
-    fit_sarimax_model,
-    generate_simulations,
-    fit_bayesian_model,
-    generate_bayesian_simulations,
     calibrate_simulations,
-    plot_forecasts,
+    fetch_fred_data,
+    fit_bayesian_model,
+    fit_sarimax_model,
+    generate_bayesian_simulations,
+    generate_simulations,
     plot_drop_probabilities,
+    plot_forecasts,
 )
 from fred_forecaster.data import get_series_name, get_series_title
 

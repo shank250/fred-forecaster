@@ -1,9 +1,10 @@
 """Functions for calibrating simulations to external targets."""
 
+from typing import Dict, List, Optional
+
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
-from typing import Dict, List, Optional
 
 
 def calibrate_simulations(

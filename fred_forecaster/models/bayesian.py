@@ -1,10 +1,11 @@
 """Bayesian time series forecasting models."""
 
+from typing import Any, Tuple, Union
+
+import arviz as az
 import numpy as np
 import pandas as pd
 import pymc as pm
-import arviz as az
-from typing import Tuple, Any, Union
 
 
 def fit_bayesian_model(ts_data: Union[pd.Series, pd.DataFrame]):

@@ -1,9 +1,11 @@
 import unittest
-import pandas as pd
+from typing import Any, Dict
+
 import numpy as np
+import pandas as pd
 import pytest
+
 from fred_forecaster import fit_bayesian_model, generate_bayesian_simulations
-from typing import Dict, Any
 
 
 class TestBayesianForecasting(unittest.TestCase):

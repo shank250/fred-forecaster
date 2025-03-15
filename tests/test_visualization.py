@@ -1,8 +1,10 @@
 import unittest
-import pandas as pd
-import numpy as np
+
 import matplotlib.pyplot as plt
-from fred_forecaster import plot_forecasts, plot_drop_probabilities
+import numpy as np
+import pandas as pd
+
+from fred_forecaster import plot_drop_probabilities, plot_forecasts
 
 
 class TestVisualization(unittest.TestCase):
