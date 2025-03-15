@@ -9,12 +9,12 @@ from typing import Tuple, Union
 def fit_sarimax_model(ts_data: Union[pd.Series, pd.DataFrame]):
     """
     Fits a SARIMAX model to the provided time series data.
-    
+
     Parameters
     ----------
     ts_data : Union[pd.Series, pd.DataFrame]
         Time series data to fit. If DataFrame, the first column is used.
-        
+
     Returns
     -------
     SARIMAXResults
@@ -23,7 +23,7 @@ def fit_sarimax_model(ts_data: Union[pd.Series, pd.DataFrame]):
     # Convert DataFrame to Series if needed
     if isinstance(ts_data, pd.DataFrame):
         ts_data = ts_data.iloc[:, 0]
-        
+
     p, d, q = 1, 1, 1
     P, D, Q, m = 0, 1, 0, 4  # Example
     model = SARIMAX(
@@ -65,9 +65,13 @@ def generate_simulations(
     # Forecast range
     last_period = df_quarterly.index[-1]
     # Create the next period after last_period correctly
-    start_forecast = pd.Period(f"{last_period.year}Q{last_period.quarter}", freq="Q-DEC")
+    start_forecast = pd.Period(
+        f"{last_period.year}Q{last_period.quarter}", freq="Q-DEC"
+    )
     if last_period.quarter < 4:
-        start_forecast = pd.Period(f"{last_period.year}Q{last_period.quarter + 1}", freq="Q-DEC")
+        start_forecast = pd.Period(
+            f"{last_period.year}Q{last_period.quarter + 1}", freq="Q-DEC"
+        )
     else:
         start_forecast = pd.Period(f"{last_period.year + 1}Q1", freq="Q-DEC")
     end_forecast = pd.Period(end, freq="Q-DEC")
@@ -83,7 +87,9 @@ def generate_simulations(
 
     # Simulate
     np.random.seed(42)
-    sim_array = results.simulate(nsimulations=steps, repetitions=N, anchor="end")
+    sim_array = results.simulate(
+        nsimulations=steps, repetitions=N, anchor="end"
+    )
 
     # Some versions give shape (N, steps), ensure shape is (steps, N).
     if sim_array.shape[0] == N:
@@ -94,5 +100,7 @@ def generate_simulations(
     else:
         sim_array = np.asarray(sim_array)
 
-    forecast_index = pd.period_range(start_forecast, periods=steps, freq="Q-DEC")
+    forecast_index = pd.period_range(
+        start_forecast, periods=steps, freq="Q-DEC"
+    )
     return sim_array, forecast_index

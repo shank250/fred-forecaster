@@ -7,13 +7,13 @@ from typing import Dict, List, Optional
 
 
 def calibrate_simulations(
-    sim_array: np.ndarray, 
+    sim_array: np.ndarray,
     forecast_index: pd.PeriodIndex,
-    targets: Optional[Dict[int, float]] = None
+    targets: Optional[Dict[int, float]] = None,
 ) -> np.ndarray:
     """
     Reweight simulation paths to match external targets in Q4 of each year.
-    
+
     Parameters
     ----------
     sim_array : np.ndarray
@@ -23,12 +23,12 @@ def calibrate_simulations(
     targets : Dict[int, float], optional
         Dictionary mapping years to target values for Q4.
         If None, uses default CBO targets.
-        
+
     Returns
     -------
     np.ndarray
         Weight vector of length N that sums to 1
-        
+
     Raises
     ------
     RuntimeError
@@ -39,11 +39,11 @@ def calibrate_simulations(
     # Hard-coded CBO annual forecasts (in trillions)
     if targets is None:
         targets = {
-            2024: 35.230, 
-            2025: 37.209, 
-            2026: 39.130, 
-            2027: 40.872, 
-            2028: 42.748
+            2024: 35.230,
+            2025: 37.209,
+            2026: 39.130,
+            2027: 40.872,
+            2028: 42.748,
         }
 
     df_fc = pd.DataFrame(sim_array, index=forecast_index)
@@ -51,7 +51,7 @@ def calibrate_simulations(
     df_Q4 = df_fc[df_fc.index.quarter == 4]
     S = df_Q4.to_numpy()  # shape: (num_years, N)
     calib_years = df_Q4.index.year.to_numpy()
-    
+
     valid_indices = [i for i, y in enumerate(calib_years) if y in targets]
     if not valid_indices:
         raise ValueError(
