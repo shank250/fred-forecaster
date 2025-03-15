@@ -11,14 +11,10 @@ class TestVisualization(unittest.TestCase):
         """Create test data for visualization"""
         # Create historical data
         dates = pd.date_range(start="2020-01-01", periods=12, freq="QE")
-        values = np.array(
-            [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210]
-        )
+        values = np.array([100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210])
         series = pd.Series(values, index=dates)
         self.df_quarterly = pd.DataFrame({"Debt": series})
-        self.df_quarterly.index = pd.PeriodIndex(
-            self.df_quarterly.index, freq="Q-DEC"
-        )
+        self.df_quarterly.index = pd.PeriodIndex(self.df_quarterly.index, freq="Q-DEC")
 
         # Create simulated forecast paths
         self.n_steps = 4  # 4 quarters
@@ -45,9 +41,7 @@ class TestVisualization(unittest.TestCase):
     def test_plot_forecasts(self):
         """Test that forecast plots are created correctly"""
         # Create plot without weights
-        fig1 = plot_forecasts(
-            self.df_quarterly, self.sim_array, self.forecast_index
-        )
+        fig1 = plot_forecasts(self.df_quarterly, self.sim_array, self.forecast_index)
         self.assertIsNotNone(fig1)
 
         # Create plot with weights

@@ -87,9 +87,7 @@ def generate_simulations(
 
     # Simulate
     np.random.seed(42)
-    sim_array = results.simulate(
-        nsimulations=steps, repetitions=N, anchor="end"
-    )
+    sim_array = results.simulate(nsimulations=steps, repetitions=N, anchor="end")
 
     # Some versions give shape (N, steps), ensure shape is (steps, N).
     if sim_array.shape[0] == N:
@@ -100,7 +98,5 @@ def generate_simulations(
     else:
         sim_array = np.asarray(sim_array)
 
-    forecast_index = pd.period_range(
-        start_forecast, periods=steps, freq="Q-DEC"
-    )
+    forecast_index = pd.period_range(start_forecast, periods=steps, freq="Q-DEC")
     return sim_array, forecast_index

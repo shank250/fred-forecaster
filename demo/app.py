@@ -25,14 +25,10 @@ from fred_forecaster.data import get_series_name, get_series_title
 
 
 def main():
-    st.set_page_config(
-        page_title="FRED Forecaster Demo", page_icon="📈", layout="wide"
-    )
+    st.set_page_config(page_title="FRED Forecaster Demo", page_icon="📈", layout="wide")
 
     st.title("FRED Series Forecasting Demo")
-    st.sidebar.image(
-        "https://fred.stlouisfed.org/images/masthead-88.png", width=200
-    )
+    st.sidebar.image("https://fred.stlouisfed.org/images/masthead-88.png", width=200)
 
     st.sidebar.markdown("## Configuration")
 
@@ -76,9 +72,7 @@ def main():
             step=10,
         )
 
-        forecast_end = st.text_input(
-            "Forecast end date (YYYYQN)", value="2028Q4"
-        )
+        forecast_end = st.text_input("Forecast end date (YYYYQN)", value="2028Q4")
 
     # Run the forecast
     if st.button("Load Data and Run Forecast", type="primary"):
@@ -118,12 +112,8 @@ def main():
                         model, idata = fit_bayesian_model(df_quarterly)
 
                         # Create Bayesian diagnostics in a collapsible section
-                        with st.expander(
-                            "Bayesian Model Diagnostics", expanded=False
-                        ):
-                            st.write(
-                                "Posterior distributions of key parameters:"
-                            )
+                        with st.expander("Bayesian Model Diagnostics", expanded=False):
+                            st.write("Posterior distributions of key parameters:")
 
                             # Create diagnostic plots using Arviz
                             param_names = [
@@ -133,9 +123,7 @@ def main():
                                 "sigma_obs",
                             ]
                             for param in param_names:
-                                trace_plot = az.plot_trace(
-                                    idata, var_names=[param]
-                                )
+                                trace_plot = az.plot_trace(idata, var_names=[param])
                                 st.pyplot(trace_plot[0][0].figure)
 
                     except Exception as e:
@@ -158,26 +146,20 @@ def main():
                     else:
                         # If Bayesian model succeeded, generate simulations
                         with st.spinner("Generating Bayesian simulations..."):
-                            sim_array, forecast_index = (
-                                generate_bayesian_simulations(
-                                    model,
-                                    idata,
-                                    df_quarterly,
-                                    end=forecast_end,
-                                    N=num_simulations,
-                                )
+                            sim_array, forecast_index = generate_bayesian_simulations(
+                                model,
+                                idata,
+                                df_quarterly,
+                                end=forecast_end,
+                                N=num_simulations,
                             )
 
             # Optional: Calibration
             weights = None
             if calibration_toggle:
                 try:
-                    with st.spinner(
-                        "Calibrating simulations to CBO targets..."
-                    ):
-                        weights = calibrate_simulations(
-                            sim_array, forecast_index
-                        )
+                    with st.spinner("Calibrating simulations to CBO targets..."):
+                        weights = calibrate_simulations(sim_array, forecast_index)
                 except Exception as e:
                     st.warning(
                         f"Calibration failed: {str(e)}. Proceeding without calibration."
@@ -200,9 +182,7 @@ def main():
             col1.plotly_chart(fig_forecasts, use_container_width=True)
 
             # Probability of drop
-            fig_drop_prob = plot_drop_probabilities(
-                sim_array, forecast_index, weights
-            )
+            fig_drop_prob = plot_drop_probabilities(sim_array, forecast_index, weights)
             col2.plotly_chart(fig_drop_prob, use_container_width=True)
 
             # Bayesian insights (only for Bayesian model)
@@ -230,16 +210,10 @@ def main():
                     plot_dates = df_quarterly.index.to_timestamp()
 
                     # Get component means
-                    level_mean = (
-                        idata.posterior["level"].mean(["chain", "draw"]).values
-                    )
-                    trend_mean = (
-                        idata.posterior["trend"].mean(["chain", "draw"]).values
-                    )
+                    level_mean = idata.posterior["level"].mean(["chain", "draw"]).values
+                    trend_mean = idata.posterior["trend"].mean(["chain", "draw"]).values
                     seasonal_mean = (
-                        idata.posterior["seasonal"]
-                        .mean(["chain", "draw"])
-                        .values
+                        idata.posterior["seasonal"].mean(["chain", "draw"]).values
                     )
 
                     # Add traces
