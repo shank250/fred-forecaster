@@ -65,7 +65,9 @@ def plot_forecasts(
     # Plot a subset of individual simulation paths
     if num_paths_to_show > 0:
         paths_to_show = min(num_paths_to_show, sim_array.shape[1])
-        indices = np.random.choice(sim_array.shape[1], paths_to_show, replace=False)
+        indices = np.random.choice(
+            sim_array.shape[1], paths_to_show, replace=False
+        )
 
         for idx in indices:
             fig.add_trace(
@@ -135,7 +137,9 @@ def plot_forecasts(
         title=f"{series_title} Forecast",
         xaxis_title="Date",
         yaxis_title=y_axis_title,
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        legend=dict(
+            orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1
+        ),
         hovermode="x unified",
         template="plotly_white",
     )

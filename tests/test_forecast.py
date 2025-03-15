@@ -10,7 +10,9 @@ class TestForecast(unittest.TestCase):
         """Create test data"""
         # Create quarterly time series data
         dates = pd.date_range(start="2020-01-01", periods=12, freq="QE")
-        values = np.array([100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210])
+        values = np.array(
+            [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210]
+        )
         self.test_series = pd.Series(values, index=dates)
         self.test_df = pd.DataFrame({"Debt": self.test_series})
         self.test_df.index = pd.PeriodIndex(self.test_df.index, freq="Q-DEC")

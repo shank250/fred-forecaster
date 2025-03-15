@@ -9,7 +9,9 @@ class TestCalibration(unittest.TestCase):
     def setUp(self):
         """Create test data for calibration"""
         # Create simulated forecast paths
-        self.n_steps = 8  # 8 quarters, covering 2 years (including Q4 of each year)
+        self.n_steps = (
+            8  # 8 quarters, covering 2 years (including Q4 of each year)
+        )
         self.n_sims = 100  # 100 simulations
 
         # Create random simulations with increasing values that match CBO targets in Q4
@@ -46,12 +48,16 @@ class TestCalibration(unittest.TestCase):
 
         # Assertions
         self.assertEqual(len(weights), self.n_sims)
-        self.assertAlmostEqual(np.sum(weights), 1.0, places=6)  # Weights sum to 1
+        self.assertAlmostEqual(
+            np.sum(weights), 1.0, places=6
+        )  # Weights sum to 1
         self.assertTrue(np.all(weights >= 0))  # All weights non-negative
 
         # Test with invalid forecast index (future years should match CBO forecasts)
         with self.assertRaises(ValueError):
-            bad_index = pd.period_range(start="2050Q1", periods=4, freq="Q-DEC")
+            bad_index = pd.period_range(
+                start="2050Q1", periods=4, freq="Q-DEC"
+            )
             calibrate_simulations(self.sim_array, bad_index)
 
 
