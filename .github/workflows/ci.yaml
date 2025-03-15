@@ -1,9 +1,9 @@
 name: CI Pipline
 on:
   pull_request:
-    branches: [main]
+    branches: [main, feature-ci-cd-setup]
   push:
-    branches: [main]
+    branches: [main, feature-ci-cd-setup]
 jobs:
   Lint:
     runs-on: ubuntu-latest
