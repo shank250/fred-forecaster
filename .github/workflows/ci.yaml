@@ -5,17 +5,18 @@ on:
   push:
     branches: [main, feature-ci-cd-setup]
 jobs:
-  Lint black:
+  Lint_black:
     runs-on: ubuntu-latest
+    name: black
     steps:
       - uses: actions/checkout@v4
       - name: Check formatting
         uses: "lgeiger/black-action@master"
         with:
           args: ". -l 79 --check"
-  Lint flake8, mypy, isort:
+  Lint_flake8_mypy_isort:
     runs-on: ubuntu-latest
-    name: CI workflow
+    name: flake8, mypy, isort
     steps:
     - name: checkout source repo
       uses: actions/checkout@main
