@@ -19,7 +19,7 @@ jobs:
     name: flake8, mypy, isort
     steps:
     - name: checkout source repo
-      uses: actions/checkout@main
+      uses: actions/checkout@v4
 
     - name: linting
       uses: programmingwithalex/pylinter@main
